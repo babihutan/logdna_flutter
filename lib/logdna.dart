@@ -20,12 +20,18 @@ class LogDNA {
   //// Sends the log via the logdna ingest API
   Future<DnaResponse> log(DnaLine line) async {
     var now = DateTime.now().toUtc().millisecondsSinceEpoch;
-    Uri uri = Uri.https('logs.logdna.com/logs/ingest',  'hostname=${this.hostName}&now=$now&apikey=${this.apiKey}&appName=${this.appName}');
+    final queryParameters = {
+      'hostname': this.hostName,
+      'now': now,
+      'apiKey': this.apiKey,
+      'appName': this.appName,
+    };
+    Uri uri = Uri.https('logs.logdna.com', 'logs/injest', queryParameters);
+    //Uri uri = Uri.https('logs.logdna.com/logs/ingest',  'hostname=${this.hostName}&now=$now&apikey=${this.apiKey}&appName=${this.appName}');
     try {
-      http.Response response = await http.post(uri,
-          body: {
-            "lines": jsonEncode([line])
-          });
+      http.Response response = await http.post(uri, body: {
+        "lines": jsonEncode([line])
+      });
       if (response.statusCode == 200) {
         print(true);
         return DnaResponse(true, response.body);
