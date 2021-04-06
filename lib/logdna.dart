@@ -23,7 +23,7 @@ class LogDNA {
     //orig: 'https://logs.logdna.com/logs/ingest?hostname=${this.hostName}&now=$now&apikey=${this.apiKey}&appName=${this.appName}',
     final Map<String, Object> queryParameters = {
       "hostname": "$hostName",
-      "now": now,
+      "now": "$now",
       "apikey": "$apiKey",
       "appName": "$appName",
     };
