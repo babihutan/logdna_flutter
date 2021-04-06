@@ -21,13 +21,13 @@ class LogDNA {
   Future<DnaResponse> log(DnaLine line) async {
     var now = DateTime.now().toUtc().millisecondsSinceEpoch;
     //orig: 'https://logs.logdna.com/logs/ingest?hostname=${this.hostName}&now=$now&apikey=${this.apiKey}&appName=${this.appName}',
-    final queryParameters = {
-      'hostname': this.hostName,
-      'now': now,
-      'apikey': this.apiKey,
-      'appName': this.appName,
+    final Map<String, Object> queryParameters = {
+      "hostname": "$hostName",
+      "now": now,
+      "apikey": "$apiKey",
+      "appName": "$appName",
     };
-    Uri uri = Uri.https('logs.logdna.com', 'logs/injest', queryParameters);
+    Uri uri = Uri.https('logs.logdna.com', '/logs/injest', queryParameters);
     try {
       http.Response response = await http.post(uri, body: {
         "lines": jsonEncode([line])
