@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logdna/models/dna_line.dart';
@@ -27,7 +26,7 @@ class LogDNA {
       "apikey": "$apiKey",
       "appName": "$appName",
     };
-    Uri uri = Uri.https('logs.logdna.com', '/logs/injest', queryParameters);
+    Uri uri = Uri.https('logs.logdna.com', '/logs/ingest', queryParameters);
     try {
       http.Response response = await http.post(uri, body: {
         "lines": jsonEncode([line])
