@@ -29,7 +29,7 @@ class LogDNA {
     Uri uri = Uri.https('logs.logdna.com', '/logs/ingest', queryParameters);
     try {
       http.Response response = await http.post(uri, body: {
-        "lines": jsonEncode([line])
+        "lines": [jsonEncode(line)]
       });
       if (response.statusCode == 200) {
         print(true);
